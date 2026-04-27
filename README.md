@@ -9,20 +9,31 @@ Built with **Kotlin + Spring Boot 3.2 + ConcurrentHashMap (in-memory) + JUnit 5 
 ## Prerequisites
 
 - **JDK 17 or newer** (the build targets Java 17)
-- **Gradle wrapper** (included in this repo as `./gradlew`)
+- **Gradle wrapper** (included in this repo — `./gradlew` on Mac/Linux, `gradlew.bat` on Windows)
 
 Verify:
 ```bash
+# Mac/Linux
 java --version     # 17+
 ./gradlew --version
+
+# Windows
+java --version
+gradlew.bat --version
 ```
 
 ---
 
 ## Run Locally
 
+**Mac/Linux:**
 ```bash
 ./gradlew bootRun
+```
+
+**Windows:**
+```bat
+gradlew.bat bootRun
 ```
 
 The app starts on `http://localhost:8080`.
@@ -30,8 +41,16 @@ The app starts on `http://localhost:8080`.
 Note: generated `shortUrl` values use `app.short-url.base-url`, which defaults to `http://short.ly` in `src/main/resources/application.properties`. For local end-to-end testing, change it to `http://localhost:8080`.
 
 To package as a runnable JAR:
+
+**Mac/Linux:**
 ```bash
 ./gradlew bootJar
+java -jar build/libs/url-shortener-0.0.1-SNAPSHOT.jar
+```
+
+**Windows:**
+```bat
+gradlew.bat bootJar
 java -jar build/libs/url-shortener-0.0.1-SNAPSHOT.jar
 ```
 
@@ -39,8 +58,14 @@ java -jar build/libs/url-shortener-0.0.1-SNAPSHOT.jar
 
 ## Run Tests
 
+**Mac/Linux:**
 ```bash
 ./gradlew test
+```
+
+**Windows:**
+```bat
+gradlew.bat test
 ```
 
 This runs both unit tests and the integration test (`@SpringBootTest`) which spins up the full Spring context using the in-memory store. Test reports are written to `build/reports/tests/test/index.html`.
@@ -51,11 +76,16 @@ This runs both unit tests and the integration test (`@SpringBootTest`) which spi
 
 ### 1. Shorten a URL — `POST /api/shorten`
 
-**Request:**
+**Request (Mac/Linux):**
 ```bash
 curl -X POST http://localhost:8080/api/shorten \
   -H "Content-Type: application/json" \
   -d '{"url": "https://www.originenergy.com.au/electricity-gas/plans.html"}'
+```
+
+**Request (Windows CMD):**
+```bat
+curl -X POST http://localhost:8080/api/shorten -H "Content-Type: application/json" -d "{\"url\": \"https://www.originenergy.com.au/electricity-gas/plans.html\"}"
 ```
 
 **Response (201 Created):**
